@@ -11,17 +11,17 @@ if [ "$EUID" -ne 0 ]
 fi
 
 echo "Stopping reNgine"
-docker stop rengine_web_1 rengine_db_1 rengine_celery_1 rengine_celery-beat_1 rengine_redis_1 rengine_tor_1 rengine_proxy_1
+docker stop scan-celery-1 scan-db-1 scan-celery-1 scan-celery-beat-1 scan-redis-1 scan-tor-1 scan-proxy-1 scan-web-1
 
 echo "Removing all Containers related to reNgine"
-docker rm rengine_web_1 rengine_db_1 rengine_celery_1 rengine_celery-beat_1 rengine_redis_1 rengine_tor_1 rengine_proxy_1
+docker rm scan-celery-1 scan-db-1 scan-celery-1 scan-celery-beat-1 scan-redis-1 scan-tor-1 scan-proxy-1 scan-web-1
 echo "Removed all Containers"
 
 echo "Removing All volumes related to reNgine"
-docker volume rm rengine_gf_patterns rengine_github_repos rengine_nuclei_templates rengine_postgres_data rengine_scan_results rengine_tool_config
+docker volume rm scan_gf_patterns scan_github_repos scan_nuclei_templates scan_postgres_data scan_scan_results scan_tool_config scan_static_volume scan_wordlist
 echo "Removed all Volumes"
 
 echo "Removing all networks related to reNgine"
-docker network rm rengine_rengine_network
-
+docker network rm scan_rengine_network scan_default
+docker image rm nginx:alpine postgres:12.3-alpine redis:alpine scan_celery scan_celery-beat:latest scan_certs:latest docker.pkg.github.com/yogeshojha/rengine/rengine:latest peterdavehello/tor-socks-proxy:latest
 echo "Finished Uninstalling."
